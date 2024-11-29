@@ -1,0 +1,121 @@
+#include <iostream>
+#include <bits/stdc++.h>
+#include <vector>
+using namespace std;
+
+void string_pair(int n, vector<int>& nums)
+{
+    unordered_map<int, string> words
+        = { { 0, "zero" },          { 1, "one" },
+            { 2, "two" },           { 3, "three" },
+            { 4, "four" },          { 5, "five" },
+            { 6, "six" },           { 7, "seven" },
+            { 8, "eight" },         { 9, "nine" },
+            { 10, "ten" },          { 11, "eleven" },
+            { 12, "twelve" },       { 13, "thirteen" },
+            { 14, "fourteen" },     { 15, "fifteen" },
+            { 16, "sixteen" },      { 17, "seventeen" },
+            { 18, "eighteen" },     { 19, "nineteen" },
+            { 20, "twenty" },       { 21, "twentyone" },
+            { 22, "twentytwo" },    { 23, "twentythree" },
+            { 24, "twentyfour" },   { 25, "twentyfive" },
+            { 26, "twentysix" },    { 27, "twentyseven" },
+            { 28, "twentyeight" },  { 29, "twentynine" },
+            { 30, "thirty" },       { 31, "thirtyone" },
+            { 32, "thirtytwo" },    { 33, "thirtythree" },
+            { 34, "thirtyfour" },   { 35, "thirtyfive" },
+            { 36, "thirtysix" },    { 37, "thirtyseven" },
+            { 38, "thirtyeight" },  { 39, "thirtynine" },
+            { 40, "forty" },        { 41, "fortyone" },
+            { 42, "fortytwo" },     { 43, "fortythree" },
+            { 44, "fortyfour" },    { 45, "fortyfive" },
+            { 46, "fortysix" },     { 47, "fortyseven" },
+            { 48, "fortyeight" },   { 49, "fortynine" },
+            { 50, "fifty" },        { 51, "fiftyone" },
+            { 52, "fiftytwo" },     { 53, "fiftythree" },
+            { 54, "fiftyfour" },    { 55, "fiftyfive" },
+            { 56, "fiftysix" },     { 57, "fiftyseven" },
+            { 58, "fiftyeight" },   { 59, "fiftynine" },
+            { 60, "sixty" },        { 61, "sixtyone" },
+            { 62, "sixtytwo" },     { 63, "sixtythree" },
+            { 64, "sixtyfour" },    { 65, "sixtyfive" },
+            { 66, "sixtysix" },     { 67, "sixtyseven" },
+            { 68, "sixtyeight" },   { 69, "sixtynine" },
+            { 70, "seventy" },      { 71, "seventyone" },
+            { 72, "seventytwo" },   { 73, "seventythree" },
+            { 74, "seventyfour" },  { 75, "seventyfive" },
+            { 76, "seventysix" },   { 77, "seventyseven" },
+            { 78, "seventyeight" }, { 79, "seventynine" },
+            { 80, "eighty" },       { 81, "eightyone" },
+            { 82, "eightytwo" },    { 83, "eightythree" },
+            { 84, "eightyfour" },   { 85, "eightyfive" },
+            { 86, "eightysix" },    { 87, "eightyseven" },
+            { 88, "eightyeight" },  { 89, "eightynine" },
+            { 90, "ninety" },       { 91, "ninetyone" },
+            { 92, "ninetytwo" },    { 93, "ninetythree" },
+            { 94, "ninetyfour" },   { 95, "ninetyfive" },
+            { 96, "ninetysix" },    { 97, "ninetyseven" },
+            { 98, "ninetyeight" },  { 99, "ninetynine" },
+            { 100, "hundred" } };
+            
+            vector<int> l1,l2;
+            int count =0,c=0;
+            //number to text
+            for(auto i: nums)
+            {
+                string s = words[i];
+                for(auto j:s)
+                {
+                    if( j=='a' || j=='e' || j=='i' || j=='o' || j=='u')
+                    count++;
+                }
+                l1.push_back(count);
+                count=0;
+            }
+            
+            
+            int sum=accumulate(l1.begin(),l1.end(),0);
+            //l1 have count numbers
+            for(auto i:l1)
+            {
+                if(i<=sum)
+                {
+                    l2.push_back(i);
+                }
+            }
+            //l2 have those values which can form pair 
+            //pair forming of thoise elements
+            vector<pair<int, int> > comb;
+            for (size_t i = 0; i < l1.size(); i++) 
+            {
+                for (size_t j = i + 1; j < l1.size(); j++) 
+                {
+                     comb.push_back(make_pair(l1[i], l1[j]));
+                }
+            }
+            
+            //to visit all the pairs in vector
+            for(auto i:comb)
+            {
+                if((i.first+i.second)==sum)
+                c++;
+            }
+            
+            if (c <= 100)    cout << words[c] << endl;
+           else cout << "greater 100" << endl;
+    
+}
+
+int main()
+{
+    int n;
+    cin>>n;
+    vector<int> nums(n);
+    for (int i = 0;i<n;i++)
+    {
+        cin>>nums[i];
+    }
+    
+    string_pair(n,nums);
+    return 0;
+}
