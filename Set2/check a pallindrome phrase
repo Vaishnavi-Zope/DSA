@@ -1,0 +1,46 @@
+#include <iostream>
+#include <string>
+#include <algorithm> // For std::transform
+
+using namespace std;
+
+bool isPalindrome(const string& str) {
+    int left = 0;
+    int right = str.length() - 1;
+
+    while (left < right) {
+        // Move left index to the next valid character
+        while (left < right && !isalnum(str[left])) {
+            left++;
+        }
+        // Move right index to the previous valid character
+        //isalnum() checks if the char is alphanumeric
+        while (left < right && !isalnum(str[right])) {
+            right--;
+        }
+
+        // Compare characters (case insensitive)
+        if (tolower(str[left]) != tolower(str[right])) {
+            return false; // Not a palindrome
+        }
+
+        left++;
+        right--;
+    }
+
+    return true; // Is a palindrome
+}
+
+int main() {
+    string input;
+    cout << "Enter a string: ";
+    getline(cin, input); // Use getline to allow spaces
+
+    if (isPalindrome(input)) {
+        cout << "\"" << input << "\" is a palindrome." << endl;
+    } else {
+        cout << "\"" << input << "\" is not a palindrome." << endl;
+    }
+
+    return 0;
+}
