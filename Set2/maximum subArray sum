@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+// Find subarray with the largest sum using Kadane's algorithm
+pair<int, int> kadaneAlgo(const vector<int>& arr) {
+    if (arr.empty()) return {0, 0};
+
+    int currentMax = arr[0];
+    int global_sum = arr[0];
+    int start = 0, end = 0, temp = 0;
+
+    for (int i = 1; i < arr.size(); i++) {
+        // Check if we should start a new subarray
+        if (arr[i] > currentMax + arr[i]) {
+            currentMax = arr[i];
+            temp = i; // Update the starting index for the new subarray
+        } else {
+            currentMax += arr[i]; // Continue with the current subarray
+        }
+
+        // Update global max and the corresponding indices
+        if (currentMax > global_sum) {
+            global_sum = currentMax;
+            start = temp; // Update start index of the max subarray
+            end = i; // Update end index of the max subarray
+        }
+    }
+
+    return {global_sum, (end - start + 1)}; // Return both the maximum sum and its size
+}
+
+int main() {
+    vector<int> arr = {-2, 1, -3, 4, -1, 2, 1, -5, 4};
+    pair<int, int> result = kadaneAlgo(arr); // Get the result from kadaneAlgo
+    cout << "Max sum subarray is: " << result.first 
+         << " with size: " << result.second << endl; // Output the result
+    return 0;
+}
