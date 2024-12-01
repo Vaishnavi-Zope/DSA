@@ -1,0 +1,28 @@
+#include <iostream>
+#include <vector>
+#include <unordered_map>
+
+using namespace std;
+
+int lengthOfLongestSubarrayWithDistinctElements(const vector<int>& arr) {
+    unordered_map<int, int> lastIndex;
+    int maxLength = 0;
+    int start = 0;
+
+    for (int i = 0; i < arr.size(); i++) {
+        if (lastIndex.find(arr[i]) != lastIndex.end()) {
+            start = max(start, lastIndex[arr[i]] + 1);
+        }
+        lastIndex[arr[i]] = i;
+        maxLength = max(maxLength, i - start + 1);
+    }
+
+    return maxLength;
+}
+
+int main() {
+    vector<int> arr = {1, 2, 3, 2, 4, 5, 3, 6};
+    int maxLength = lengthOfLongestSubarrayWithDistinctElements(arr);
+    cout << "Length of the longest subarray with distinct elements: " << maxLength << endl;
+    return 0;
+}
